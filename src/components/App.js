@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import UseMemo from "./UseMemo.js";
+import UseMemo from "./UseMemo";
 import ReactMemo from "./ReactMemo";
 
 function App() {
