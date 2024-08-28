@@ -1,31 +1,21 @@
 
-import React, { useMemo, useState } from 'react';
+import React, { useState, useMemo } from 'react';
 
-function UseMemo({ todos }) {
-      const [count, setCount] = useState(0);
-      const dynamicContent = useMemo(() => {
-        return 1000000000 + count;
-      }, [count]);
-  const handleIncrement = () => {
-    setCount(count + 1);
-    console.log(`count after increment ${count}`);
-  };
+const UseMemo = () => {
+  const [count, setCount] = useState(0);
+
+  const dynamicContent = useMemo(() => {
+    return 1000000000 + count;
+  }, [count]);
   return (
     <div id="calc">
-        <p id="incr-cnt">Count: {count}</p>
-      <p>{dynamicContent}</p>
-      <button id="incr-btn" onClick={handleIncrement}>
-        + {count}
-      </button>
-      <ul>
-        {todos.map((todo, index) => (
-          <li id={`todo-${index}`} key={index}>{todo}
-          
-          </li>
-        ))}
-      </ul>
+      <h2>UseMemo Example</h2>
+      <p id="incr-cnt">Counter: {count}</p>
+      <p>{<p>{dynamicContent}</p>}</p>
+      
+      <button onClick={() => setCount(count + 1)} id="incr-btn">+<b>{count}</b></button>
     </div>
   );
-}
+};
 
 export default UseMemo;

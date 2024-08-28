@@ -1,17 +1,18 @@
 import React from 'react';
 
-const ReactMemo = React.memo(({ todos }) => {
-  console.log('ReactMemo component rendered');
+const ReactMemo = () => {
+  const Component = ({ data }) => {
+    return <p>Data: {data}</p>;
+  };
+
+  const MemoizedComponent = React.memo(Component);
+
   return (
     <div>
-      <h2>ReactMemo Component</h2>
-      <ul id ="item-jumbotron">
-        {todos.map((todo, index) => (
-          <li key={index}>{todo}</li>
-        ))}
-      </ul>
+      <h2>React.memo Example</h2>
+      <MemoizedComponent data="Memoized Data" />
     </div>
   );
-});
+};
 
 export default ReactMemo;

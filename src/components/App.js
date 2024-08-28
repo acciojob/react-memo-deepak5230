@@ -1,57 +1,68 @@
-import React, { useMemo, useState } from "react";
-import UseMemo from "./UseMemo";
-import ReactMemo from "./ReactMemo";
+import React, { useState } from 'react';
+import UseMemo from './UseMemo';
+import ReactMemo from './ReactMemo';
+const App = () => { 
+  const [tasks, setTasks] = useState([]);
+  const [counter, setCounter] = useState(0);
+  const [customTask, setCustomTask] = useState('');
 
-function App() {
-  const [taskList, setTaskList] = useState([]);
-  const [skillInput, setSkillInput] = useState("");
-  const [count, setCount] = useState(0);
-
-  const addTask = () => {
-    setTaskList([...taskList, "New Todo"]);
-    console.log(taskList);
+  const handleAddTodo = () => {
+    setTasks([...tasks, 'New todo']);
   };
+
   const handleIncrement = () => {
-    setCount(count + 1);
-    console.log(`count after increment ${count}`);
+    setCounter(counter + 1);
   };
-  const handleSkillChange=(e)=>{
-    setSkillInput(e.target.value);
 
-  }
-  const handleSkillSubmit=()=>{
-    if(skillInput.length>5){
-        setTaskList([...taskList,skillInput]);
-        setSkillInput("");
+  const handleCustomTaskChange = (e) => {
+    setCustomTask(e.target.value);
+  };
 
-    }else{
-        alert('Task must be more than 5 characters long.')
+  const handleCustomTaskSubmit = () => {
+    if (customTask.length > 5) {
+      setTasks([...tasks, customTask]);
+      setCustomTask('');
+    } else {
+      alert('Task must be more than 5 characters long.');
     }
-  }
-  const memoizedTodos = useMemo(() => taskList, [taskList]); //gpt
+  };
+
+  const handleRemoveTask = (index) => {
+    const updatedTasks = [...tasks];
+    updatedTasks.splice(index, 1);
+    setTasks(updatedTasks);
+  };
+
   return (
     <div id="main">
-      <button id="add-todo-btn" onClick={addTask}>
-        Add Todo
-      </button>
-      <button id="increment-btn" onClick={handleIncrement}>
-        + {count}
-      </button>
+      <button id="add-todo-btn" onClick={handleAddTodo}>Add todo</button>
+      
+      <button id="increment-btn" onClick={handleIncrement}>{counter}</button>
       <input
-      id="skill-input"
-      type="text"
-      value={skillInput}
-      onChange={handleSkillChange}
+        id="skill-input"
+        type="text"
+        value={customTask}
+        onChange={handleCustomTaskChange}
+        placeholder="Enter custom task"
       />
-      <button id="skill-btn"
-      onClick={handleSkillSubmit}>Add Skill</button>
-       
-       <UseMemo todos={memoizedTodos} />
-       <ReactMemo todos={memoizedTodos} />
-   
+      <button onClick={handleCustomTaskSubmit} id="skill-btn">Add Skill</button>
+      <div id="item-jumbotron">
+      {tasks.map((task, index) => (
+    <div key={index}>{task}</div>
+  ))}
+      </div>
+      <ul>
+        {tasks.map((task, index) => (
+          <li key={index}>
+            {task}
+            <button id={`todo-${index}`} onClick={() => handleRemoveTask(index)}>New Todo</button>
+          </li>
+        ))}
+      </ul>
+      <UseMemo />
+      <ReactMemo />
     </div>
-
   );
-}
+};
 
 export default App;
